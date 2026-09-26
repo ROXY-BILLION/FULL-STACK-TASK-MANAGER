@@ -6,8 +6,10 @@ import {
   FaTrash,
   FaTasks,
 } from "react-icons/fa";
-const API_URL = import.meta.env.VITE_API_URL;
+
 import "./App.css";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -24,7 +26,9 @@ function App() {
   useEffect(() => {
     const getTasks = async () => {
       try {
-        const response = await axios.get(`${API_URL}/api/tasks`);
+        const response = await axios.get(
+          `${API_URL}/api/tasks`
+        );
 
         setTasks(response.data);
       } catch (error) {
@@ -40,7 +44,10 @@ function App() {
     e.preventDefault();
 
     try {
-      const response = await axios.post(`${API_URL}/api/tasks`, formData);
+      const response = await axios.post(
+        `${API_URL}/api/tasks`,
+        formData
+      );
 
       setTasks((prevTasks) => [
         ...prevTasks,
@@ -74,9 +81,9 @@ function App() {
 
     try {
       const response = await axios.put(
-  `${API_URL}/api/tasks/${editingTaskId}`,
-  formData
-);
+        `${API_URL}/api/tasks/${editingTaskId}`,
+        formData
+      );
 
       setTasks((prevTasks) =>
         prevTasks.map((task) =>
@@ -102,11 +109,13 @@ function App() {
   const deleteTask = async (id) => {
     try {
       await axios.delete(
-  `${API_URL}/api/tasks/${id}`
-);
+        `${API_URL}/api/tasks/${id}`
+      );
 
       setTasks((prevTasks) =>
-        prevTasks.filter((task) => task._id !== id)
+        prevTasks.filter(
+          (task) => task._id !== id
+        )
       );
     } catch (error) {
       console.error("DELETE TASK ERROR:", error);
@@ -125,7 +134,9 @@ function App() {
 
           <div>
             <h1>Task Manager</h1>
-            <p>Organize your work and stay productive.</p>
+            <p>
+              Organize your work and stay productive.
+            </p>
           </div>
         </header>
 
@@ -153,6 +164,7 @@ function App() {
             }
             className="task-form"
           >
+            {/* TITLE */}
             <div className="input-group">
               <label>Task Title</label>
 
@@ -169,6 +181,7 @@ function App() {
               />
             </div>
 
+            {/* DESCRIPTION */}
             <div className="input-group">
               <label>Description</label>
 
@@ -184,6 +197,7 @@ function App() {
               />
             </div>
 
+            {/* STATUS */}
             <div className="input-group">
               <label>Status</label>
 
@@ -210,6 +224,7 @@ function App() {
               </select>
             </div>
 
+            {/* SUBMIT */}
             <button
               type="submit"
               className="submit-btn"
@@ -275,6 +290,7 @@ function App() {
 
                   <div className="task-actions">
                     <button
+                      type="button"
                       className="edit-btn"
                       onClick={() =>
                         startEditing(task)
@@ -285,6 +301,7 @@ function App() {
                     </button>
 
                     <button
+                      type="button"
                       className="delete-btn"
                       onClick={() =>
                         deleteTask(task._id)
