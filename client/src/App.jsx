@@ -6,7 +6,7 @@ import {
   FaTrash,
   FaTasks,
 } from "react-icons/fa";
-
+const API_URL = import.meta.env.VITE_API_URL;
 import "./App.css";
 
 function App() {
@@ -24,9 +24,7 @@ function App() {
   useEffect(() => {
     const getTasks = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:5000/api/tasks"
-        );
+        const response = await axios.get(`${API_URL}/api/tasks`);
 
         setTasks(response.data);
       } catch (error) {
@@ -42,10 +40,7 @@ function App() {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/tasks",
-        formData
-      );
+      const response = await axios.post(`${API_URL}/api/tasks`, formData);
 
       setTasks((prevTasks) => [
         ...prevTasks,
@@ -79,9 +74,9 @@ function App() {
 
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/tasks/${editingTaskId}`,
-        formData
-      );
+  `${API_URL}/api/tasks/${editingTaskId}`,
+  formData
+);
 
       setTasks((prevTasks) =>
         prevTasks.map((task) =>
@@ -107,8 +102,8 @@ function App() {
   const deleteTask = async (id) => {
     try {
       await axios.delete(
-        `http://localhost:5000/api/tasks/${id}`
-      );
+  `${API_URL}/api/tasks/${id}`
+);
 
       setTasks((prevTasks) =>
         prevTasks.filter((task) => task._id !== id)
